@@ -1,0 +1,23 @@
+<?php
+
+define('DATABASE_DIR',   ROOT . DS . APP_DIR . DS . 'tmp' . DS . 'database');
+define('SQLITE_DEFAULT', DATABASE_DIR . DS . 'default');
+define('SQLITE_TEST',    DATABASE_DIR . DS . 'test');
+
+class DATABASE_CONFIG {
+
+  public $default = array(
+    'datasource' => 'Database/Sqlite',
+    'persistent' => false,
+    'database'   => SQLITE_DEFAULT,
+    'prefix'     => '',
+  );
+
+  public $test = array(
+    'datasource' => 'Database/Sqlite',
+    'persistent' => false,
+    'database'   => SQLITE_TEST,
+    'prefix'     => '',
+  );
+
+}

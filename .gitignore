@@ -1,0 +1,87 @@
+# CakePHP
+app/tmp/*
+!app/tmp/cache/models/empty
+!app/tmp/cache/persistent/empty
+!app/tmp/cache/views/empty
+!app/tmp/logs/empty
+!app/tmp/sessions/empty
+!app/tmp/tests/empty
+!app/tmp/database/empty
+app/Config/core.php
+app/Config/database.php
+app/Config/email.php
+app/Plugin/
+app/Vendor/
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Eclipse
+.metadata
+.gradle
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+.cproject
+.buildpath
+.texlipse
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+.org-id-locations
+*_archive
+*_flymake.*
+/eshell/history
+/eshell/lastdir
+/elpa/
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# Vagrant
+.vagrant/
+
+# Node
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+node_modules

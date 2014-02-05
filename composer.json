@@ -1,0 +1,32 @@
+{
+  "name": "tabi-no-shiori",
+  "repositories": [
+    {
+      "type": "pear",
+      "url": "http://pear.cakephp.org"
+    }
+  ],
+  "require": {
+    "pear-cakephp/cakephp": ">=2.4.4",
+    "cakephp/debug_kit":    "2.*",
+    "cakedc/migrations":    "*",
+    "cakedc/utils":         "1.*",
+    "slywalker/boost_cake": "1.*",
+    "phpunit/phpunit":      "3.7.*",
+    "imagine/imagine":      "~0.5.0"
+  },
+  "config": {
+    "vendor-dir": "app/Vendor/"
+  },
+  "extra": {
+    "installer-paths": {
+      "app/Plugin/{$name}/": [
+        "cakephp/debug_kit",
+        "cakedc/migrations",
+        "cakedc/utils",
+        "slywalker/boost_cake"
+      ]
+    }
+  }
+}
+
