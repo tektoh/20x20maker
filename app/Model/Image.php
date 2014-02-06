@@ -16,14 +16,18 @@ class Image extends AppModel {
       return false;
     }
 
-    $this->log($file['type']);
     if      ($file['type'] == "image/jpeg") $extension = "jpg";
     else if ($file['type'] == "image/png")  $extension = "png";
     else                                    $extension = false;
-    $this->log($extension);
 
     if ($extension === false) {
       return false;
+    }
+
+    if ($extension == "jpg") {
+      $rotate = $this->getExifRotate($file['tmp_name']);
+    } else {
+      $rotate = 0;
     }
 
     $uuid    = String::uuid();
@@ -34,6 +38,7 @@ class Image extends AppModel {
     $mode    = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
 
     $imagine->open($file['tmp_name'])
+      ->rotate($rotate)
       ->thumbnail($large, $mode)
       ->save($this->getLargeImage($directory, $uuid, $extension));
 
@@ -42,6 +47,18 @@ class Image extends AppModel {
       ->save($this->getThumbImage($directory, $uuid, $extension));
 
     return compact('path', 'directory', 'uuid', 'extension');
+  }
+
+  public function getExifRotate($file) {
+    $exif = exif_read_data($file);
+    if (!empty($exif) && !empty($exif['Orientation'])) {
+      switch ($exif['Orientation']) {
+      case 8: return 90;
+      case 3: return 180;
+      case 6: return -90;
+      }
+    }
+    return 0;
   }
 
   public function path($year, $month) {
