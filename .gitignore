@@ -18,6 +18,8 @@ app/Config/database.php
 app/Config/email.php
 app/Plugin/
 app/Vendor/
+app/webroot/thumbs/*
+!app/webroot/thumbs/empty
 
 # OSX
 .DS_Store

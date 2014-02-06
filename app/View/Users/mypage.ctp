@@ -34,14 +34,21 @@
 	  <?php foreach ($user['Presentation'] as $presentation): ?>
     <tr>
       <th>
+        #<?= $presentation['id'] ?>
+      </th>
+      <th>
         <?php echo $this->Html->link($presentation['title'], ['controller' => 'presentations', 'action' => 'view', $presentation['id']]); ?>
       </th>
       <td>
         <?php echo $this->Html->link('Edit', ['controller' => 'presentations', 'action' => 'edit', $presentation['id']]); ?>
       </td>
-      <td><a href="#">Delete</a></td>
+      <td>
+        <?php echo $this->Form->postLink('Delete', ['controller' => 'presentations', 'action' => 'delete', $presentation['id']],
+          null, 'Are you sure you want to delete the presentation?'); ?>
+      </td>
     </tr>
     <?php endforeach ?>
   </table>
   <?php endif ?>
+  <a href="/logout" class="btn btn-default">Logout</a>
 </div>

@@ -25,8 +25,8 @@
         'div' => false,
         'class' => 'btn btn-default',
       ]); ?>
-      <a href="/register" class="btn btn-default">Register</a>
     </div>
   </div>
   <?php echo $this->Form->end(); ?>
+  <a href="/register" class="btn btn-default">Register</a>
 </div>

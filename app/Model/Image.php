@@ -1,18 +1,28 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('Folder', 'Utility');
 
 class Image extends AppModel {
 
+  const SIZE_THUMB = "t";
+  const SIZE_LARGE = "l";
+
   public function thumbnail($file) {
-    $directory = $this->derectory();
+    $year      = date('Y');
+    $month     = date('m');
+    $path      = $this->path($year, $month);
+    $directory = $this->directory($year, $month);
     if ($directory === false) {
       return false;
     }
 
-    $ext = $file['type'] == "image/jpeg" ? 'jpg' :
-           $file['type'] == "image/png"  ? 'png' : false;
+    $this->log($file['type']);
+    if      ($file['type'] == "image/jpeg") $extension = "jpg";
+    else if ($file['type'] == "image/png")  $extension = "png";
+    else                                    $extension = false;
+    $this->log($extension);
 
-    if ($ext === false) {
+    if ($extension === false) {
       return false;
     }
 
@@ -25,17 +35,143 @@ class Image extends AppModel {
 
     $imagine->open($file['tmp_name'])
       ->thumbnail($large, $mode)
-      ->save("{$directory}/{$uuid}_l.{$ext}");
+      ->save($this->getLargeImage($directory, $uuid, $extension));
 
-    $imagine->open("{$directory}/{$uuid}_l.{$ext}")
+    $imagine->open($this->getLargeImage($directory, $uuid, $extension))
       ->thumbnail($thumb, $mode)
-      ->save("{$directory}/{$uuid}_t.{$ext}");
+      ->save($this->getThumbImage($directory, $uuid, $extension));
+
+    return compact('path', 'directory', 'uuid', 'extension');
   }
 
-  public function directory() {
-    $year  = data('Y');
-    $month = data('m');
+  public function path($year, $month) {
+    return "/thumbs/{$year}/{$month}";
+  }
+
+  public function directory($year, $month) {
     $directory = ROOT . DS . APP_DIR . DS . 'webroot' . DS . 'thumbs' . DS . $year . DS . $month;
-    return Folder::create($directory) ? $directory : false;
+    $folder = new Folder();
+    return $folder->create($directory) ? $directory : false;
+  }
+
+  public function getImagePath($directory, $uuid, $size, $extension) {
+    return "{$directory}/{$uuid}_{$size}.{$extension}";
+  }
+
+  public function getThumbImage() {
+    if (func_num_args() == 3) {
+      $directory = func_get_arg(0);
+      $uuid      = func_get_arg(1);
+      $extension = func_get_arg(2);
+    } else {
+      $image = func_get_arg(0);
+      if (isset($image['Image'])) {
+        $image = $image['Image'];
+      }
+      $directory = $image['directory'];
+      $uuid      = $image['uuid'];
+      $extension = $image['extension'];
+    }
+    return $this->getImagePath($directory, $uuid, self::SIZE_THUMB, $extension);
+  }
+
+  public function getLargeImage() {
+    if (func_num_args() == 3) {
+      $directory = func_get_arg(0);
+      $uuid      = func_get_arg(1);
+      $extension = func_get_arg(2);
+    } else {
+      $image = func_get_arg(0);
+      if (isset($image['Image'])) {
+        $image = $image['Image'];
+      }
+      $directory = $image['directory'];
+      $uuid      = $image['uuid'];
+      $extension= $image['extension'];
+    }
+    return $this->getImagePath($directory, $uuid, self::SIZE_LARGE, $extension);
+  }
+
+  public function getUrlPath($image, $size) {
+    if (isset($image['Image'])) {
+      $image = $image['Image'];
+    }
+    $path      = $image['path'];
+    $uuid      = $image['uuid'];
+    $extension = $image['extension'];
+    return "{$path}/{$uuid}_{$size}.{$extension}";
+  }
+
+  public function getThumbUrl($image) {
+    return $this->getUrlPath($image, self::SIZE_THUMB);
+  }
+
+  public function getLargeUrl($image) {
+    return $this->getUrlPath($image, self::SIZE_LARGE);
+  }
+
+  public function orderMax($presentation_id) {
+    $image = $this->findByPresentationId($presentation_id, null, 'Image.order DESC', -1);
+
+    if (empty($image)) {
+      return 0;
+    } else {
+      return $image['Image']['order'];
+    }
+  }
+
+  public function swap($image1, $image2) {
+      $tmp_order = $image1['Image']['order'];
+      $image1['Image']['order'] = $image2['Image']['order'];
+      $image2['Image']['order'] = $tmp_order;
+      $this->create();
+      $this->save($image1);
+      $this->create();
+      $this->save($image2);
+  }
+
+  public function up($image1) {
+    $image2 = $this->find('first', [
+      'conditions' => [
+        'Image.presentation_id' => $image1['Image']['presentation_id'],
+        'Image.order <'         => $image1['Image']['order'],
+      ],
+      'order' => [
+        'Image.order' => 'DESC'
+      ]
+    ]);
+    if (!empty($image2)) {
+      $this->swap($image1, $image2);
+    }
+  }
+
+  public function down($image1) {
+    $image2 = $this->find('first', [
+      'conditions' => [
+        'Image.presentation_id' => $image1['Image']['presentation_id'],
+        'Image.order >'         => $image1['Image']['order'],
+      ],
+      'order' => [
+        'Image.order' => 'ASC'
+      ]
+    ]);
+    if (!empty($image2)) {
+      $this->swap($image1, $image2);
+    }
+  }
+
+  public function rotate($image, $rotate = 90) {
+    $imagine = new Imagine\Imagick\Imagine();
+    $large = $this->getLargeImage($image);
+    $thumb = $this->getThumbImage($image);
+    $imagine->open($large)->rotate($rotate)->save($large);
+    $imagine->open($thumb)->rotate($rotate)->save($thumb);
+  }
+
+  public function deleteImage($image) {
+    $file = new File($this->getLargeImage($image));
+    $file->delete();
+    $file = new File($this->getThumbImage($image));
+    $file->delete();
   }
 }

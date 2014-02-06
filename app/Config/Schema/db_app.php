@@ -116,6 +116,12 @@ class DbAppSchema extends CakeSchema {
       'default' => null,
       'length'  => 100
     ],
+    'path' => [
+      'type'    => 'string',
+      'null'    => false,
+      'default' => null,
+      'length'  => 100
+    ],
     'uuid' => [
       'type'    => 'string',
       'null'    => false,
