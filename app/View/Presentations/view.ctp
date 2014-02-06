@@ -40,6 +40,6 @@ $this->Html->scriptEnd();
 <div id="jumbotron" class="jumbotron">
   <div class="container">
     <h1><?= $presentation['Presentation']['title'] ?></h1>
-    <p><a href="#" id="start" class="btn btn-primary btn-lg">Start</a></p>
+    <p><a href="#" id="start" class="btn btn-danger btn-lg">Start</a></p>
   </div>
 </div>

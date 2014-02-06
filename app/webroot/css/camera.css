@@ -1,3 +1,17 @@
+html, body {
+  height: 100%;
+  background-color: #000;
+}
+#slide {
+  height: 100%;
+  background-color: #000;
+}
+.jumbotron {
+  background-color: #000;
+}
+.jumbotron h1 {
+  color: #fff;
+}
 /**************************
 *
 *	GENERAL
@@ -214,6 +228,7 @@
 	margin: 0;
 	padding: 0;
 	text-align: right;
+  background-color: #000;
 }
 .camera_wrap .camera_pag .camera_pag_ul li {
 	-webkit-border-radius: 8px;
