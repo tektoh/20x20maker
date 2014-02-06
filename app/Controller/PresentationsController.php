@@ -43,7 +43,8 @@ class PresentationsController extends AppController {
   }
 
   public function view($presentation_id) {
-    $images = $this->Image->find('all', [
+    $presentation = $this->Presentation->findById($presentation_id, null, null, -1);
+    $images       = $this->Image->find('all', [
       'conditions' => ['Image.presentation_id' => $presentation_id],
       'order'      => ['Image.order' => 'ASC'],
       'limit'      => 100,
@@ -55,7 +56,7 @@ class PresentationsController extends AppController {
       $images[$i]['Image']['thumb_url'] = $this->Image->getThumbUrl($image);
     }
 
-    $this->set(compact('images'));
+    $this->set(compact('presentation', 'images'));
   }
 
   public function delete($presentation_id) {
