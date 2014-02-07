@@ -12,7 +12,9 @@
     git clone git@github.com:tektoh/20x20maker.git
     cd 20x20maker
     php composer.phar install
-    chmod 666 -R app/tmp
-    chmod 666 -R app/webroot/thumbs
-    cp -v app/Config/core.php.sample app/Config/core.php
-    cp -v app/Config/database.php.sample app/Config/database.php
+    cd app
+    cp -v Config/core.php.sample Config/core.php
+    cp -v Config/database.php.sample Config/database.php
+    Console/cake schema create DbApp
+    chmod 666 -R tmp
+    chmod 666 -R webroot/thumbs
