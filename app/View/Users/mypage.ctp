@@ -1,6 +1,6 @@
 <div class="container">
   <div class="page-header">
-    <h1><?= $user['User']['username']; ?>さんのマイページ</h1>
+    <h1>Mypage: <?= $user['User']['username']; ?></h1>
   </div>
 
   <?php echo $this->Form->create('Presentation', [
