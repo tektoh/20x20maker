@@ -3,6 +3,10 @@
     <h1>Edit: <?= $presentation['Presentation']['title'] ?></h1>
   </div>
 
+  <ul class="pager">
+    <li class="previous"><a href="/mypage">&larr; Back to mypage</a></li>
+  </ul>
+
   <table class="table">
   <?php $i = 0; foreach ($images as $image): $i++; ?>
     <tr>
@@ -65,5 +69,8 @@
 
   <hr>
 
-  <a href="/mypage">Back to mypage</a>
+  <ul class="pager">
+    <li class="previous"><a href="/mypage">&larr; Back to mypage</a></li>
+  </ul>
+
 </div>
