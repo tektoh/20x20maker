@@ -48,7 +48,7 @@ class User extends AppModel {
 
   public function password_hash($password, $salt = '') {
     if (empty($salt)) {
-      $chrlist = str_split('abcdefghkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ012345679');
+      $chrlist = str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345679');
       $salt = vsprintf('$2y$%02d$', [Security::$hashCost]);
       for ($i = 0; $i < 22; $i++) {
         $random = array_rand($chrlist);
