@@ -40,13 +40,7 @@ class DbAppSchema extends CakeSchema {
       'type'    => 'string',
       'null'    => false,
       'default' => null,
-      'length'  => 100
-    ],
-    'salt' => [
-      'type'    => 'string',
-      'null'    => false,
-      'default' => null,
-      'length'  => 100
+      'length'  => 255
     ],
     'role' => [
       'type'    => 'string',

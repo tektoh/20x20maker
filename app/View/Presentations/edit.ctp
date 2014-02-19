@@ -55,6 +55,7 @@
   <?php echo $this->Form->input('files.', [
     'type'       => 'file',
     'afterInput' => "<span class=\"help-block\">Upload max filesize: {$upload_max_filesize}, Post max size: {$post_max_size}</span>",
+    'accept'     => "image/jpeg,image/png",
     'multiple'
   ]);
   echo $this->Form->hidden('presentation_id', [

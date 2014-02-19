@@ -35,8 +35,7 @@ class User extends AppModel {
 
   public function beforeSave($options = []) {
     if (isset($this->data[$this->alias]['password'])) {
-      $this->data[$this->alias]['salt']     = $this->salt();
-      $this->data[$this->alias]['password'] = $this->hash($this->data[$this->alias]['password'], $this->data[$this->alias]['salt']);
+      $this->data[$this->alias]['password'] = $this->password_hash($this->data[$this->alias]['password']);
     }
     if (isset($this->data[$this->alias]['username'])) {
       $this->data[$this->alias]['username'] = Sanitize::html($this->data[$this->alias]['username']);
@@ -47,12 +46,24 @@ class User extends AppModel {
     return true;
   }
 
-  public function salt() {
-    return vsprintf('$2a$%02d$%s', [Security::$hashCost, bin2hex(openssl_random_pseudo_bytes(22))]);
+  public function password_hash($password, $salt = '') {
+    if (empty($salt)) {
+      $chrlist = str_split('abcdefghkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ012345679');
+      $salt = vsprintf('$2y$%02d$', [Security::$hashCost]);
+      for ($i = 0; $i < 22; $i++) {
+        $random = array_rand($chrlist);
+        $salt .= $chrlist[$random];
+      }
+    }
+    $password = Security::hash($password, 'sha256', true);
+    $hash     = crypt($password, $salt); 
+    return "{$salt}/{$hash}";
   }
 
-  public function hash($password, $salt) {
-    return Security::hash(Security::hash($password, 'sha256', true), 'blowfish', $salt);
+  public function password_verify($password, $hash) {
+    $data = explode('/', $hash, 2);
+    $salt = $data[0];
+    return $hash == $this->password_hash($password, $salt);
   }
 
   public function auth($data, $fields = null, $order = null, $recursive = -1) {
@@ -61,8 +72,8 @@ class User extends AppModel {
       $this->log('User->findByName Error: ' . $data['User']['username']);
       return false;
     }
-    if ($user['User']['password'] != $this->hash($data['User']['password'], $user['User']['salt'])) {
-      $this->log('User->hash Error: ' . $data['User']['username']);
+    if (!$this->password_verify($data['User']['password'], $user['User']['password'])) {
+      $this->log('User->password_verify Error: ' . $data['User']['username']);
       return false;
     }
     return $user;
