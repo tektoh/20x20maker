@@ -1,8 +1,6 @@
 <?php
 $this->Html->css('camera', array('inline' => false));
-$this->Html->script('//code.jquery.com/jquery-1.11.0.min.js', array('inline' => false));
 $this->Html->script('//code.jquery.com/jquery-migrate-1.2.1.min.js', array('inline' => false));
-$this->Html->script('//code.jquery.com/ui/1.10.4/jquery-ui.min.js', array('inline' => false));
 $this->Html->script('camera.min', array('inline' => false));
 $this->Html->scriptStart(array('inline' => false));
 $count = count($images);

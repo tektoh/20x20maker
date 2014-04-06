@@ -3,6 +3,8 @@ App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
 
+  public $uses = ['User', 'Image'];
+
   public function beforeFilter() {
     $this->Auth->allow('login', 'logout', 'register');
     $this->Auth->loginRedirect  = ['controller' => 'users', 'action' => 'mypage'];
@@ -10,10 +12,19 @@ class UsersController extends AppController {
   }
 
 	public function mypage() {
-    $this->set('user', $this->User->findById($this->Auth->user()));
+    $this->set('title', 'Mypage');
+    $user =  $this->User->findById($this->Auth->user(), null, null, 2);
+    foreach ($user['Presentation'] as $i => $presentation) {
+      foreach ($user['Presentation'][$i]['Image'] as $j => $image) {
+        $user['Presentation'][$i]['Image'][$j]['Image']['icon_url'] = $this->Image->getIconUrl($image);
+        $user['Presentation'][$i]['Image'][$j]['Image']['thumb_url'] = $this->Image->getThumbUrl($image);
+      }
+    }
+    $this->set(compact('user'));
 	}
 
 	public function register() {
+    $this->set('title', 'Register');
 		if ($this->request->is('post')) {
       $this->User->create();
 			if ($this->User->save($this->request->data)) {
@@ -26,6 +37,7 @@ class UsersController extends AppController {
 	}
 
   public function login() {
+    $this->set('title', 'Login');
     if ($this->request->is('post')) {
       $user = $this->User->auth($this->request->data);
       if ($user !== false &&  $this->Auth->login($user['User'])) {

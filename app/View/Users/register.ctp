@@ -1,6 +1,6 @@
 <div class="container">
   <div class="page-header">
-    <h1>20x20maker::Register</h1>
+    <h1>20x20maker</h1>
   </div>
   <?php echo $this->Form->create('User', [
     'inputDefaults' => [
@@ -13,6 +13,7 @@
     ],
     'class' => 'well form-horizontal'
   ]); ?>
+  <legend>ユーザー登録</legend>
   <?php echo $this->Form->input('username', [
     'placeholder' => 'Name',
   ]); ?>

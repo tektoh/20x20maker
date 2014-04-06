@@ -12,7 +12,6 @@
  * @package       app.Config
  * @since         CakePHP(tm) v 0.10.8.2117
  */
-
 require APP . '/Vendor/autoload.php';
 spl_autoload_unregister(array('App', 'load'));
 spl_autoload_register(array('App', 'load'), true, true);

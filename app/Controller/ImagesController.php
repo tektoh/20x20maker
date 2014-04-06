@@ -7,6 +7,9 @@ class ImagesController extends AppController {
     if ($this->request->is('post')) {
 
       $count           = count($this->request->data['Image']['files']);
+      if ($count <= 0 || empty($this->request->data['Image']['files'][0]['name'])) {
+        return $this->redirect($this->referer());
+      }
       $presentation_id = $this->request->data['Image']['presentation_id'];
       $order           = $this->Image->orderMax($presentation_id);
 

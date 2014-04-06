@@ -1,6 +1,6 @@
 <div class="container">
   <div class="page-header">
-    <h1>20x20maker::Login</h1>
+    <h1>20x20maker</h1>
   </div>
   <?php echo $this->Form->create('User', [
     'inputDefaults' => [
@@ -13,6 +13,7 @@
     ],
     'class' => 'well form-horizontal'
   ]); ?>
+  <legend>ログイン</legend>
   <?php echo $this->Form->input('username', [
     'placeholder' => 'Name',
   ]); ?>
@@ -21,12 +22,12 @@
   ]); ?>
   <div class="form-group">
     <div class="col col-md-9 col-md-offset-3">
-      <?php echo $this->Form->submit('Login', [
+      <?php echo $this->Form->submit('ログイン', [
         'div' => false,
         'class' => 'btn btn-default',
       ]); ?>
+      <a href="/register" class="btn btn-info">ユーザー登録</a>
     </div>
   </div>
   <?php echo $this->Form->end(); ?>
-  <a href="/register" class="btn btn-default">Register</a>
 </div>

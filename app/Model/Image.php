@@ -4,6 +4,7 @@ App::uses('Folder', 'Utility');
 
 class Image extends AppModel {
 
+  const SIZE_ICON  = "i";
   const SIZE_THUMB = "t";
   const SIZE_LARGE = "l";
 
@@ -35,6 +36,7 @@ class Image extends AppModel {
     $imagine = new Imagine\Imagick\Imagine();
     $large   = new Imagine\Image\Box(1440, 1440);
     $thumb   = new Imagine\Image\Box(300, 300);
+    $icon    = new Imagine\Image\Box(20,20);
     $mode    = Imagine\Image\ImageInterface::THUMBNAIL_INSET;
 
     $imagine->open($file['tmp_name'])
@@ -45,6 +47,10 @@ class Image extends AppModel {
     $imagine->open($this->getLargeImage($directory, $uuid, $extension))
       ->thumbnail($thumb, $mode)
       ->save($this->getThumbImage($directory, $uuid, $extension));
+
+    $imagine->open($this->getThumbImage($directory, $uuid, $extension))
+      ->thumbnail($icon, Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND)
+      ->save($this->getIconImage($directory, $uuid, $extension));
 
     return compact('path', 'directory', 'uuid', 'extension');
   }
@@ -73,6 +79,23 @@ class Image extends AppModel {
 
   public function getImagePath($directory, $uuid, $size, $extension) {
     return "{$directory}/{$uuid}_{$size}.{$extension}";
+  }
+
+  public function getIconImage() {
+    if (func_num_args() == 3) {
+      $directory = func_get_arg(0);
+      $uuid      = func_get_arg(1);
+      $extension = func_get_arg(2);
+    } else {
+      $image = func_get_arg(0);
+      if (isset($image['Image'])) {
+        $image = $image['Image'];
+      }
+      $directory = $image['directory'];
+      $uuid      = $image['uuid'];
+      $extension = $image['extension'];
+    }
+    return $this->getImagePath($directory, $uuid, self::SIZE_ICON, $extension);
   }
 
   public function getThumbImage() {
@@ -117,6 +140,10 @@ class Image extends AppModel {
     $uuid      = $image['uuid'];
     $extension = $image['extension'];
     return "{$path}/{$uuid}_{$size}.{$extension}";
+  }
+
+  public function getIconUrl($image) {
+    return $this->getUrlPath($image, self::SIZE_ICON);
   }
 
   public function getThumbUrl($image) {
@@ -181,11 +208,15 @@ class Image extends AppModel {
     $imagine = new Imagine\Imagick\Imagine();
     $large = $this->getLargeImage($image);
     $thumb = $this->getThumbImage($image);
+    $icon  = $this->getIconImage($image);
     $imagine->open($large)->rotate($rotate)->save($large);
     $imagine->open($thumb)->rotate($rotate)->save($thumb);
+    $imagine->open($icon)->rotate($rotate)->save($icon);
   }
 
   public function deleteImage($image) {
+    $file = new File($this->getIconImage($image));
+    $file->delete();
     $file = new File($this->getLargeImage($image));
     $file->delete();
     $file = new File($this->getThumbImage($image));

@@ -1,43 +1,30 @@
 <div class="container">
   <div class="page-header">
-    <h1>Edit: <?= $presentation['Presentation']['title'] ?></h1>
+    <div class="pull-right"><a class="btn btn-link" href="/logout">ログアウト</a></div>
+    <h1>20x20maker</h1>
   </div>
-
   <ul class="pager">
-    <li class="previous"><a href="/mypage">&larr; Back to mypage</a></li>
+    <li class="previous"><a href="/mypage">&larr; 戻る</a></li>
   </ul>
-
-  <table class="table">
-  <?php $i = 0; foreach ($images as $image): $i++; ?>
-    <tr>
-      <td>
-        #<?= $i ?>
-      </td>
-      <td>
-        <div class="thumbnail"><img src="<?= $image['Image']['thumb_url'] ?>"></div>
-      </td>
-      <td>
-        <div><?php echo $this->Html->link('Up',
-          ['controller' => 'images','action' => 'up', $image['Image']['id']],
-          null); ?></div>
-        <div><?php echo $this->Html->link('Down',
-          ['controller' => 'images', 'action' => 'down', $image['Image']['id']],
-          null); ?></div>
-        <div><?php echo $this->Html->link('Rotate 90',
-          ['controller' => 'images', 'action' => 'rotate', $image['Image']['id'], 90],
-          null); ?></div>
-        <div><?php echo $this->Html->link('Rotate -90',
-          ['controller' => 'images', 'action' => 'rotate', $image['Image']['id'], -90],
-          null); ?></div>
-        <div><?php echo $this->Html->link('Rotate 180',
-          ['controller' => 'images', 'action' => 'rotate', $image['Image']['id'], 180],
-          null); ?></div>
-        <div><?php echo $this->Form->postLink('Delete', ['controller' => 'images', 'action' => 'delete', $image['Image']['id']],
-          null, 'Are you sure you want to delete the image?'); ?></div>
-    </tr>
-  <?php endforeach ?>
-  </table>
-
+  <h2><?= $presentation['Presentation']['title'] ?></h2>
+  <div class="row">
+    <?php $i = 0; foreach ($images as $image): $i++; ?>
+    <div class="col-xs-12">
+      <div class="thumbnail">
+        <img src="<?= $image['Image']['thumb_url'] ?>">
+        <div class="caption">
+          <p class="text-center">#<?= $i ?></p>
+          <div class="row">
+            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Up', ['controller' => 'images','action' => 'up', $image['Image']['id']], null); ?></div>
+            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Down', ['controller' => 'images', 'action' => 'down', $image['Image']['id']], null); ?></div>
+            <div class="col-xs-4 text-center"><?php echo $this->Form->postLink('Delete', ['controller' => 'images', 'action' => 'delete', $image['Image']['id']],
+              null, 'Are you sure you want to delete the image?'); ?></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php endforeach ?>
+  </div>
   <?php echo $this->Form->create('Image', [
     'controller' => 'images',
     'action'     => 'add',
@@ -71,7 +58,7 @@
   <hr>
 
   <ul class="pager">
-    <li class="previous"><a href="/mypage">&larr; Back to mypage</a></li>
+    <li class="previous"><a href="/mypage">&larr; 戻る</a></li>
   </ul>
 
 </div>
