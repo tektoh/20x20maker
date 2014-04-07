@@ -16,7 +16,7 @@
 	?>
 </head>
 <body>
-  <div class="container"><?php echo $this->Session->flash(); ?></div>
+  <div class="container session-flush"><?php echo $this->Session->flash(); ?></div>
 	<?php echo $this->fetch('content'); ?>
 	<?php echo $this->element('sql_dump'); ?>
   <?php
