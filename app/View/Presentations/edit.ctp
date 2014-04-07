@@ -15,10 +15,10 @@
         <div class="caption">
           <p class="text-center">#<?= $i ?></p>
           <div class="row">
-            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Up', ['controller' => 'images','action' => 'up', $image['Image']['id']], null); ?></div>
-            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Down', ['controller' => 'images', 'action' => 'down', $image['Image']['id']], null); ?></div>
+            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Up', ['controller' => 'images','action' => 'up', $image['Image']['id']], ['class' => 'btn btn-link btn-block']); ?></div>
+            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Down', ['controller' => 'images', 'action' => 'down', $image['Image']['id']], ['class' => 'btn btn-link btn-block']); ?></div>
             <div class="col-xs-4 text-center"><?php echo $this->Form->postLink('Delete', ['controller' => 'images', 'action' => 'delete', $image['Image']['id']],
-              null, 'Are you sure you want to delete the image?'); ?></div>
+              ['class' => 'btn btn-link'], 'Are you sure you want to delete the image?'); ?></div>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
     ],
     'class' => 'form-inline'
   ]); ?>
-  <legend>Upload images</legend>
+  <legend>画像のアップロード</legend>
   <?php echo $this->Form->input('files.', [
     'type'       => 'file',
     'afterInput' => "<span class=\"help-block\">Upload max filesize: {$upload_max_filesize}, Post max size: {$post_max_size}</span>",
