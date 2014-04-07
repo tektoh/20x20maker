@@ -11,6 +11,7 @@
 
     git clone git@github.com:tektoh/20x20maker.git
     cd 20x20maker
+    curl -sS https://getcomposer.org/installer | php
     php composer.phar install
     cd app
     cp -v Config/core.php.sample Config/core.php
