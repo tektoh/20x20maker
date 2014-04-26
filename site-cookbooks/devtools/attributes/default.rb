@@ -1,0 +1,21 @@
+default['devtools']['packages'] = %w[
+  bind-utils
+  curl
+  elinks
+  ethtool
+  expect
+  iputils
+  jwhois
+  ltrace
+  lynx
+  nc
+  nmap
+  strace
+  strace
+  tcpdump
+  telnet
+  traceroute
+  vim-enhanced
+  wget
+  zsh
+  ]

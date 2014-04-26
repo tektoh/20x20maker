@@ -59,6 +59,9 @@ local.properties
 .buildpath
 .texlipse
 
+# PhpStorm
+.idea
+
 # Emacs
 *~
 \#*\#
