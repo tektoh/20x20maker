@@ -13,7 +13,8 @@ class AppController extends Controller {
           'class' => 'alert-error'
         ]
       ]
-    ]
+    ],
+    'DebugKit.Toolbar',
   ];
 
   public $helpers = array(

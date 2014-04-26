@@ -18,7 +18,6 @@
 <body>
   <div class="container session-flush"><?php echo $this->Session->flash(); ?></div>
 	<?php echo $this->fetch('content'); ?>
-	<?php echo $this->element('sql_dump'); ?>
   <?php
     echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js');
     echo $this->Html->script('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js');

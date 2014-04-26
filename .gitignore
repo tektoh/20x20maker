@@ -1,4 +1,5 @@
 # CakePHP
+app/tmp/cache/*
 app/tmp/cache/models/*
 !app/tmp/cache/models/empty
 app/tmp/cache/persistent/*
