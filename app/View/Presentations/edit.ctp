@@ -7,9 +7,9 @@
     <li class="previous"><a href="/mypage">&larr; 戻る</a></li>
   </ul>
   <h2><?= $presentation['Presentation']['title'] ?></h2>
-  <div class="row">
+  <div class="row"">
     <?php $i = 0; foreach ($images as $image): $i++; ?>
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-md-4">
       <div class="thumbnail">
         <img src="<?= $image['Image']['thumb_url'] ?>">
         <div class="caption">
