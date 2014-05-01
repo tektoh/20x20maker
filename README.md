@@ -25,13 +25,20 @@ chmod 666 -R webroot/thumbs
 開発環境
 -----------
 
-VirtualBox, Vagrant, Chef が必要です。
+VirtualBox, Vagrant, Berkshelf が必要です。
+
+* VirtualBox
+https://www.virtualbox.org/
+* Vagrant
+http://www.vagrantup.com/
+* Berkshelf
+http://berkshelf.com/
 
 ```
-vagrant plugin install vagrant-berkshelf
 vagrant plugin install vagrant-omnibus
+berks install
+berks vendor
 vagrant up
-vagrant provision
 ```
 
 Web application

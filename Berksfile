@@ -1,5 +1,5 @@
-site :opscode
-cookbook "yum", "~> 3.0.0"
+source 'http://api.berkshelf.com'
+cookbook "yum"
 cookbook "yum-epel"
 cookbook "yum-repoforge"
 cookbook "yum-remi", path: "site-cookbooks/yum-remi"

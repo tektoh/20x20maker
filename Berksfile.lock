@@ -1,0 +1,93 @@
+DEPENDENCIES
+  apache2
+    git: https://github.com/onehealth-cookbooks/apache2.git
+    revision: a3b811da0b822ddee65b74ede5c0c33397d3f650
+  apache2-wrap
+    path: site-cookbooks/apache2-wrap
+  composer
+    git: https://github.com/escapestudios-cookbooks/composer.git
+    revision: f5a0840d5243b2d560710de385e429bfc3d5fe56
+  devtools
+    path: site-cookbooks/devtools
+  git
+    git: https://github.com/jssjr/git.git
+    revision: b1bca76aaf3a3a2131744f17f6e5087e22fa3c40
+  iptables
+    git: https://github.com/opscode-cookbooks/iptables.git
+    revision: 15ab6d62744baa91ab0f88b9f72623f4b5d1c062
+  php
+    git: https://github.com/opscode-cookbooks/php.git
+    revision: 180e5d23037809e840d6ed8600f50823c513791a
+  php-wrap
+    path: site-cookbooks/php-wrap
+  selinux
+    git: https://github.com/opscode-cookbooks/selinux.git
+    revision: 5e7f7c538c1f3ef7d6358870291d1d6a1d9c8515
+  yum
+    git: https://github.com/opscode-cookbooks/yum.git
+    revision: a42b643c39f04960b9f91bffcb5012473abe206f
+  yum-epel
+    git: https://github.com/opscode-cookbooks/yum-epel.git
+    revision: 6ef99e1b09b367c11e4ac0542c472137bdb1f869
+  yum-remi
+    path: site-cookbooks/yum-remi
+  yum-repoforge
+    git: https://github.com/opscode-cookbooks/yum-repoforge.git
+    revision: 5a13c2835c832dab830e36a64c0c28385d334795
+  yum-update
+    path: site-cookbooks/yum-update
+
+GRAPH
+  apache2 (1.10.5)
+    iptables (>= 0.0.0)
+    logrotate (>= 0.0.0)
+    pacman (>= 0.0.0)
+  apache2-wrap (0.1.0)
+    apache2 (>= 0.0.0)
+  build-essential (2.0.0)
+  chef_handler (1.1.6)
+  composer (1.0.1)
+    php (>= 0.0.0)
+    windows (>= 0.0.0)
+  devtools (0.1.0)
+  dmg (2.2.0)
+  git (4.0.3)
+    build-essential (>= 0.0.0)
+    dmg (>= 0.0.0)
+    runit (>= 1.0.0)
+    windows (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  iis (2.1.2)
+    windows (>= 1.2.6)
+  iptables (0.13.3)
+  logrotate (1.5.0)
+  mysql (5.2.2)
+  pacman (1.1.1)
+  php (1.4.7)
+    build-essential (>= 0.0.0)
+    iis (>= 0.0.0)
+    mysql (>= 0.0.0)
+    windows (>= 0.0.0)
+    xml (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  php-wrap (0.1.0)
+    php (>= 0.0.0)
+  runit (1.5.10)
+    build-essential (>= 0.0.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  selinux (0.8.1)
+  windows (1.30.2)
+    chef_handler (>= 0.0.0)
+  xml (1.2.4)
+    build-essential (>= 0.0.0)
+  yum (3.2.1)
+  yum-epel (0.3.7)
+    yum (~> 3.0)
+  yum-remi (0.1.0)
+    yum (>= 0.0.0)
+  yum-repoforge (0.2.1)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
+  yum-update (0.1.0)

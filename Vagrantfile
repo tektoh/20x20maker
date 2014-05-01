@@ -16,8 +16,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         mount_options: ['dmode=777,fmode=666']
 
   config.omnibus.chef_version = :latest
-  config.berkshelf.enabled = true
   config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = ["./berks-cookbooks", "./site-cookbooks"]
     chef.run_list = [
       "yum-epel",
       "yum-repoforge",
@@ -33,7 +33,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ]
     chef.json = {
       "yum" => {
-        "rpmforge-extras" => {"enabled" => false}
+        "rpmforge-extras" => {
+          "enabled" => false
+        }
       },
       "apache" => {
         "log_dir" => "/vagrant/app/tmp/logs",

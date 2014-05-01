@@ -91,6 +91,10 @@ Session.vim
 # Vagrant
 .vagrant/
 
+# Chef
+cookbooks/
+berks-cookbooks/
+
 # Node
 lib-cov
 *.seed
