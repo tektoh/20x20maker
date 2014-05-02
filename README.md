@@ -36,8 +36,7 @@ http://berkshelf.com/
 
 ```
 vagrant plugin install vagrant-omnibus
-berks install
-berks vendor
+berks install -p cookbooks
 vagrant up
 ```
 
