@@ -60,6 +60,7 @@ local.properties
 .cproject
 .buildpath
 .texlipse
+.project
 
 # PhpStorm
 .idea/
