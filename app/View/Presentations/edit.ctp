@@ -7,23 +7,49 @@
     <li class="previous"><a href="/mypage">&larr; 戻る</a></li>
   </ul>
   <h2><?= $presentation['Presentation']['title'] ?></h2>
-  <div class="row"">
-    <?php $i = 0; foreach ($images as $image): $i++; ?>
+  <?php foreach ($images as $i => $image):?>
+    <?php if ($i % 3 == 0): ?>
+        <?php if ($i > 0): ?>
+            </div>
+        <?php endif ?>
+        <div class="row">
+    <?php endif ?>
     <div class="col-xs-12 col-md-4">
       <div class="thumbnail">
         <img src="<?= $image['Image']['thumb_url'] ?>">
         <div class="caption">
           <p class="text-center">#<?= $i ?></p>
           <div class="row">
-            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Up', ['controller' => 'images','action' => 'up', $image['Image']['id']], ['class' => 'btn btn-link btn-block']); ?></div>
-            <div class="col-xs-4 text-center"><?php echo $this->Html->link('Down', ['controller' => 'images', 'action' => 'down', $image['Image']['id']], ['class' => 'btn btn-link btn-block']); ?></div>
-            <div class="col-xs-4 text-center"><?php echo $this->Form->postLink('Delete', ['controller' => 'images', 'action' => 'delete', $image['Image']['id']],
-              ['class' => 'btn btn-link'], 'Are you sure you want to delete the image?'); ?></div>
+            <div class="col-xs-2 text-center">
+                <?php echo $this->Html->link('<i class="fa fa-arrow-up"></i>',
+                    ['controller' => 'images','action' => 'up', $image['Image']['id']],
+                    ['class' => 'btn btn-link btn-block', 'escape' => false]); ?>
+            </div>
+            <div class="col-xs-2 text-center">
+                <?php echo $this->Html->link('<i class="fa fa-arrow-down"></i>',
+                    ['controller' => 'images', 'action' => 'down', $image['Image']['id']],
+                    ['class' => 'btn btn-link btn-block', 'escape' => false]); ?>
+            </div>
+            <div class="col-xs-2 text-center">
+                <?php echo $this->Html->link('<i class="fa fa-rotate-left"></i>',
+                    ['controller' => 'images', 'action' => 'rotate', $image['Image']['id'], 270],
+                    ['class' => 'btn btn-link btn-block', 'escape' => false]); ?>
+            </div>
+            <div class="col-xs-2 text-center">
+                <?php echo $this->Html->link('<i class="fa fa-rotate-right"></i>',
+                    ['controller' => 'images', 'action' => 'rotate', $image['Image']['id'], 90],
+                    ['class' => 'btn btn-link btn-block', 'escape' => false]); ?>
+            </div>
+            <div class="col-xs-offset-2 col-xs-2 text-center">
+                <?php echo $this->Form->postLink('<i class="fa fa-trash-o"></i>',
+                    ['controller' => 'images', 'action' => 'delete', $image['Image']['id']],
+                    ['class' => 'btn btn-link', 'escape' => false],
+                    'Are you sure you want to delete the image?'); ?></div>
           </div>
         </div>
       </div>
     </div>
-    <?php endforeach ?>
+  <?php endforeach ?>
   </div>
   <?php echo $this->Form->create('Image', [
     'controller' => 'images',
